@@ -1,5 +1,5 @@
 import streamlit as st
-
+import openpyxl
 import pandas as pd
 
 # ---------------------------
@@ -27,7 +27,8 @@ if uploaded_file:
     if uploaded_file.name.endswith(".csv"):
         df = pd.read_csv(uploaded_file)
     else:
-        df = pd.read_excel(uploaded_file)
+        df = pd.read_excel(uploaded_file, engine="openpyxl")
+
 
     st.subheader("🔍 Raw Data Preview")
     st.dataframe(df.head())
