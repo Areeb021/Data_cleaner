@@ -1,5 +1,4 @@
 import streamlit as st
-
 import pandas as pd
 
 # ---------------------------
@@ -29,7 +28,6 @@ if uploaded_file:
     else:
         df = pd.read_excel(uploaded_file)
 
-
     st.subheader("🔍 Raw Data Preview")
     st.dataframe(df.head())
 
@@ -49,6 +47,7 @@ if uploaded_file:
     with col2:
         standardize_cols = st.checkbox("Standardize column names")
         reset_index = st.checkbox("Reset index")
+        drop_empty_cols = st.checkbox("Remove empty columns")
 
     # ---------------------------
     # Clean Button
@@ -61,6 +60,9 @@ if uploaded_file:
 
         if drop_na:
             df_clean = df_clean.dropna()
+
+        if drop_empty_cols:
+            df_clean = df_clean.dropna(axis=1, how="all")
 
         if standardize_cols:
             df_clean.columns = (
